@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f0e8">
+  <title>Pro Cast — Aujourd’hui à l’affiche</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Accueil Pro Cast">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path class="mark-dark" d="M12 11L29 31 10 39l22 2 7 14 4-18 12-7-17-2-7-17-4 17z"/>
+          <path class="mark-red" d="M35 10l3 18 17 2-12 7-4 18-7-14-22-2 19-8z"/>
+        </svg>
+        <span class="wordmark"><b>PRO</b> <em>CAST</em></span>
+      </a>
+      <button class="icon-button" id="resetDay" title="Recommencer la démo" aria-label="Recommencer la démo">↻</button>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow" id="dateLabel"></p>
+        <h1>Aujourd’hui<br><i>à l’affiche</i></h1>
+        <p class="motto">cras, cras; semper cras,<br>sic evadit aetas</p>
+      </section>
+
+      <section class="headliner" id="headlinerCard">
+        <div class="section-label"><span>01</span> TÊTE D’AFFICHE</div>
+        <div id="headlinerContent"></div>
+      </section>
+
+      <section class="supporting">
+        <div class="section-heading">
+          <div class="section-label"><span>02</span> SECONDS RÔLES</div>
+          <span class="counter" id="taskCounter"></span>
+        </div>
+        <div class="task-list" id="taskList"></div>
+      </section>
+
+      <button class="add-trigger" id="addTrigger"><span>＋</span> Ajouter une tâche</button>
+
+      <section class="done-section" id="doneSection">
+        <button class="done-toggle" id="doneToggle">
+          <span>COUPÉES AU MONTAGE</span><span id="doneCount"></span>
+        </button>
+        <div class="done-list" id="doneList"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>PRO CAST © 2026</span>
+      <span>Faire maintenant. Respirer ensuite.</span>
+    </footer>
+  </div>
+
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm">
+      <button class="close-button" value="cancel" aria-label="Fermer">×</button>
+      <p class="eyebrow">NOUVEAU RÔLE</p>
+      <h2>Qu’est-ce qui mérite<br>votre attention ?</h2>
+      <label>Tâche<input id="taskTitle" maxlength="90" placeholder="Ex. Envoyer la proposition" required autofocus></label>
+      <div class="form-row">
+        <label>Rôle
+          <select id="taskRole"><option value="supporting">Second rôle</option><option value="headliner">Tête d’affiche</option><option value="extra">Figuration</option></select>
+        </label>
+        <label>Durée<input id="taskDuration" maxlength="12" placeholder="25 min"></label>
+      </div>
+      <button class="primary-button" value="default">Entrer en scène →</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
