@@ -1,0 +1,16 @@
+{
+  "name": "Pro Cast",
+  "short_name": "Pro Cast",
+  "description": "Aujourd’hui à l’affiche — organiser ses scènes, ses actions et ses scénarios.",
+  "lang": "fr",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f0e8",
+  "theme_color": "#f4f0e8",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

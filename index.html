@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f4f0e8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Pro Cast">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>Pro Cast — Aujourd’hui à l’affiche</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
@@ -13,12 +19,14 @@
   <link rel="stylesheet" href="v3.css">
   <link rel="stylesheet" href="v4.css">
   <link rel="stylesheet" href="drawer.css">
+  <link rel="stylesheet" href="v9.css">
+  <link rel="stylesheet" href="v9-fixes.css">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
     <header class="mobile-header">
       <button class="more-button" id="scenarioTrigger" aria-label="Plus">•••</button>
-      <a class="mobile-brand" href="#">PRO <i>CAST</i></a>
+      <a class="mobile-brand" href="#" aria-label="Pro Cast — accueil"><svg class="mobile-brand-mark" viewBox="0 0 64 64" aria-hidden="true"><path class="mark-dark" d="M12 11L29 31 10 39l22 2 7 14 4-18 12-7-17-2-7-17-4 17z"/><path class="mark-red" d="M35 10l3 18 17 2-12 7-4 18-7-14-22-2 19-8z"/></svg><span>PRO <i>CAST</i></span></a>
       <span class="header-spacer" aria-hidden="true"></span>
     </header>
     <div class="environment-switch" role="group" aria-label="Environnement">
@@ -30,6 +38,7 @@
         <p class="mobile-kicker" id="mobileDate"></p>
         <h1>Les têtes<br><i>d’affiche</i></h1>
         <p class="mobile-lead">Choisis jusqu’à trois priorités pour aujourd’hui.</p>
+        <button class="revision-card" id="revisionCard"><span>↺</span><div><b id="revisionTitle">Revisionnage</b><small id="revisionSubtitle"></small></div><strong id="revisionBadge">0</strong></button>
         <div class="priority-stack" id="priorityStack"></div>
         <button class="mobile-review" id="mobileReview">Faire le point <b id="mobileReviewCount">0</b></button>
       </section>
@@ -45,7 +54,7 @@
         <div id="mobileStats"></div>
       </section>
     </main>
-    <button class="floating-add" id="mobileAdd" aria-label="Ajouter une tâche"><span>＋</span><small>Ajouter</small></button>
+    <button class="floating-add icon-only" id="mobileAdd" aria-label="Ajouter une tâche"><span>＋</span></button>
     <nav class="bottom-nav" aria-label="Navigation principale">
       <button class="active" data-page="dailyPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M10 7h8c3 0 5 2 5 5s-2 5-5 5h-8z"/><path d="M8 8h3v8H8m15-6h3v4h-3M12 18v3h7v-4m-3 4v3m0 0-5 3m5-3 5 3"/></svg>Quotidien</button>
       <button data-page="weekPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M6 9h21v16H6zM6 9l4-6h20l-3 6M11 3 8 9m9-6-3 6m10-6-3 6M11 14h4m4 0h4m-12 5h4m4 0h4"/></svg>Semaine</button>
@@ -104,35 +113,26 @@
     </footer>
   </div>
 
-  <dialog id="taskDialog">
-    <form method="dialog" id="taskForm">
-      <button class="close-button" value="cancel" aria-label="Fermer">×</button>
-      <p class="eyebrow" id="dialogEyebrow">NOUVEAU RÔLE</p>
-      <h2 id="dialogTitle">Qu’est-ce qui mérite<br>votre attention ?</h2>
+  <dialog id="taskDialog" class="ios-sheet">
+    <form method="dialog" id="taskForm" class="scene-form">
+      <header class="sheet-header"><button class="sheet-cancel" type="button" id="cancelTask">Annuler</button><b id="dialogEyebrow">Nouvelle scène</b><button class="sheet-save" value="default" id="saveTask">Créer</button></header>
+      <div class="sheet-content"><h2 id="dialogTitle">Qu’est-ce qui mérite ton attention ?</h2>
       <input type="hidden" id="editingId">
-      <label>Objectif de la scène<input id="taskTitle" maxlength="90" placeholder="Ex. Envoyer la proposition" required autofocus></label>
-      <div class="form-row">
-        <label>Rôle
-          <select id="taskRole"><option value="supporting">Second rôle</option><option value="headliner">Tête d’affiche</option><option value="extra">Figuration</option></select>
-        </label>
-        <label>Durée<input id="taskDuration" maxlength="12" placeholder="25 min"></label>
-      </div>
-      <label class="nature-field">Nature
-        <select id="taskNature"><option value="todo">À faire</option><option value="desire">J’ai envie</option><option value="urgent">Urgent</option><option value="waiting">En attente</option></select>
-      </label>
-      <label class="scenario-field">Scénario<select id="taskScenario"></select></label>
-      <label class="actions-field">Actions<textarea id="taskActions" rows="3" placeholder="Une action par ligne"></textarea></label>
-      <label class="date-field">Fin de tournage<input id="taskDue" type="date"></label>
-      <div class="consequence-fields">
-        <label>Si je la fais…<textarea id="taskPositive" rows="2" placeholder="Ce que cela m’apportera"></textarea></label>
-        <label>Si je ne la fais pas…<textarea id="taskNegative" rows="2" placeholder="Ce qui risque de se passer"></textarea></label>
-      </div>
-      <div class="dialog-actions">
-        <button class="danger-button" type="button" id="deleteTask">Supprimer</button>
-        <div><button class="cancel-button" type="button" id="cancelTask">Annuler</button><button class="primary-button" value="default" id="saveTask">Entrer en scène →</button></div>
+      <label class="ios-field">Objectif de la scène<input id="taskTitle" maxlength="90" placeholder="Ex. Préparer la réunion" required autofocus></label>
+      <section class="compact-section"><span>Scénario</span><div class="horizontal-chips" id="scenarioChips"></div><select id="taskScenario" hidden></select></section>
+      <section class="compact-section"><span>Rôle</span><div class="horizontal-chips choice-chips" data-choice="taskRole"><button type="button" data-value="supporting">Second rôle</button><button type="button" data-value="extra">Figuration</button><button type="button" data-value="headliner">Tête d’affiche</button></div><select id="taskRole" hidden><option value="supporting">Second rôle</option><option value="extra">Figuration</option><option value="headliner">Tête d’affiche</option></select></section>
+      <section class="compact-section"><span>Nature</span><div class="horizontal-chips choice-chips" data-choice="taskNature"><button type="button" data-value="todo">À faire</button><button type="button" data-value="urgent">Urgent</button><button type="button" data-value="desire">Envie</button><button type="button" data-value="waiting">En attente</button></div><select id="taskNature" hidden><option value="todo">À faire</option><option value="urgent">Urgent</option><option value="desire">Envie</option><option value="waiting">En attente</option></select></section>
+      <section class="compact-section"><span>Fin de tournage</span><div class="horizontal-chips date-chips"><button type="button" data-date-offset="0">Aujourd’hui</button><button type="button" data-date-offset="1">Demain</button><button type="button" data-date-sunday>Dimanche</button><button type="button" id="customDateButton">Choisir…</button></div><input id="taskDue" class="compact-date" type="date"></section>
+      <section class="actions-builder"><div class="section-title"><span>Actions</span><small>Une scène peut en contenir autant que nécessaire.</small></div><div id="actionRows"></div><button type="button" class="add-action" id="addAction">＋ Ajouter une action</button></section>
+      <details class="meaning-details"><summary>Pourquoi cette scène compte-t-elle ?</summary><div class="meaning-group"><span>Ce que cette scène rend possible</span><div class="suggestion-chips" data-target="taskPositive"><button type="button">Moins de charge mentale</button><button type="button">Gagner du temps ensuite</button><button type="button">Avancer vers un objectif</button><button type="button">Aider quelqu’un</button><button type="button">Retrouver du calme</button></div><textarea id="taskPositive" rows="2" placeholder="Autre formulation…"></textarea></div><div class="meaning-group"><span>Si je la laisse de côté</span><div class="suggestion-chips" data-target="taskNegative"><button type="button">Davantage de stress</button><button type="button">Un retard</button><button type="button">Un coût supplémentaire</button><button type="button">Un impact sur quelqu’un</button><button type="button">Rien de grave</button></div><textarea id="taskNegative" rows="2" placeholder="Autre formulation…"></textarea></div></details>
+      <button class="delete-scene" type="button" id="deleteTask">Supprimer la scène</button>
       </div>
     </form>
   </dialog>
+
+  <dialog id="durationDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow">ACTION TERMINÉE</p><h2>Combien de temps<br>environ ?</h2><p id="durationActionTitle"></p><div class="duration-choices"><button data-minutes="5">5 min</button><button data-minutes="10">10 min</button><button data-minutes="15">15 min</button><button data-minutes="30">30 min</button><button data-minutes="45">45 min</button><button data-minutes="60">1 h</button><button data-minutes="0">Je ne sais pas</button></div><button class="sheet-cancel" id="cancelDuration">Annuler</button></div></dialog>
+
+  <dialog id="finishSceneDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow">FIN DE SCÈNE</p><h2>Toutes les actions<br>sont terminées.</h2><p>Souhaites-tu couper la scène ?</p><button class="finish-primary" id="confirmFinishScene">Terminer la scène</button><button class="sheet-cancel" id="keepSceneOpen">La garder ouverte</button></div></dialog>
 
   <dialog id="reviewDialog" class="wide-dialog">
     <div class="review-panel">
@@ -168,7 +168,8 @@
     <div class="scenario-panel">
       <button class="close-button" id="closeScenarios" aria-label="Fermer">×</button>
       <p class="eyebrow">PLUS · SCÉNARIOS</p>
-      <h2>Les histoires<br>en cours</h2>
+      <h2>Les histoires<br><i>en cours</i></h2>
+      <p class="drawer-motto">cras, cras; semper cras,<br>sic evadit aetas</p>
       <div class="task-search">
         <label for="taskSearch">Rechercher une scène</label>
         <input id="taskSearch" type="search" placeholder="Nom, action, scénario, semaine…">
@@ -183,10 +184,13 @@
         <div id="scenarioList"></div>
       </div>
       <form id="scenarioForm" class="scenario-form">
+        <input id="editingScenarioId" type="hidden">
         <input id="scenarioEmoji" class="emoji-input" placeholder="🎬" maxlength="4" aria-label="Emoji">
         <input id="scenarioName" placeholder="Nouveau scénario" maxlength="35" required>
-        <button>Créer</button>
+        <button id="saveScenario">Créer</button>
       </form>
+      <div class="emoji-palette" id="emojiPalette" aria-label="Choisir un emoji"></div>
+      <button class="cancel-scenario-edit" id="cancelScenarioEdit" type="button">Annuler la modification</button>
       <section class="data-safety">
         <p class="eyebrow">MES DONNÉES</p>
         <p>Conserve une copie avant une évolution importante.</p>
@@ -197,6 +201,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9.2-local"></script>
 </body>
 </html>

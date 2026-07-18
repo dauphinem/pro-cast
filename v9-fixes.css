@@ -1,0 +1,43 @@
+@media(max-width:780px){
+  .priority-card h2,
+  .mobile-task h3,
+  .episode-heading b,
+  .empty-priority,
+  .mobile-stat,
+  .scenario-progress,
+  .revision-card,
+  .scene-actions,
+  .scenario-row,
+  .episode-controls,
+  .consequence-item,
+  .stats-note{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif!important;
+    letter-spacing:normal;
+  }
+  .priority-card h2{font-size:21px;line-height:1.2;font-weight:650}
+  .mobile-task h3{font-size:16px;line-height:1.25;font-weight:650}
+  .empty-priority{font-size:14px;line-height:1.35;font-style:normal}
+  .episode-heading b{font-size:14px;line-height:1.25;font-weight:650}
+  .mobile-brand{display:flex;align-items:center;justify-content:center;gap:6px}
+  .mobile-brand-mark{width:25px;height:25px;overflow:visible}
+  .mobile-brand-mark .mark-dark{fill:var(--ink)}
+  .mobile-brand-mark .mark-red{fill:var(--red)}
+  .scenario-panel h2 i{color:var(--red);font-weight:500}
+  .drawer-motto{margin:-14px 0 24px;color:var(--muted);font:italic 13px/1.45 "Playfair Display",serif}
+  .date-chips button.selected{background:var(--red);color:#fff}
+  .compact-section select[hidden]{display:none!important}
+  .floating-add.icon-only{width:52px;height:52px;min-width:52px;padding:0;border-radius:50%;display:grid;place-items:center}
+  .floating-add.icon-only span{font-size:29px;line-height:1;transform:translateY(-1px)}
+  .mobile-task .scene-actions{grid-column:1/-1;margin-top:8px}
+  .scene-action{width:100%;background:transparent;text-align:left;border-left:0;border-right:0;border-bottom:0}
+  .scene-action>span{display:grid;place-items:center;width:23px;height:23px;border:1.5px solid #a8a8ad;border-radius:7px;color:white}
+  .scene-action.done>span{background:var(--green);border-color:var(--green)}
+  .scene-action.done>b{text-decoration:line-through;color:var(--muted)}
+  .scenario-row-wrap{position:relative;padding-right:40px}
+  .scenario-row-wrap .scenario-row{width:100%}
+  .scenario-edit{position:absolute;right:0;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:rgba(127,127,127,.1);font-size:17px}
+  .emoji-palette{display:flex;gap:7px;overflow-x:auto;padding:9px 2px 12px;scrollbar-width:none}
+  .emoji-palette button{flex:0 0 39px;height:39px;border:0;border-radius:12px;background:rgba(127,127,127,.1);font-size:21px}
+  .cancel-scenario-edit{display:none;border:0;background:transparent;color:#9b2d30;padding:0 0 14px}
+  .cancel-scenario-edit.visible{display:block}
+}
