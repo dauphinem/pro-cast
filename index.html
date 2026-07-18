@@ -110,7 +110,7 @@
       <p class="eyebrow" id="dialogEyebrow">NOUVEAU RÔLE</p>
       <h2 id="dialogTitle">Qu’est-ce qui mérite<br>votre attention ?</h2>
       <input type="hidden" id="editingId">
-      <label>Tâche<input id="taskTitle" maxlength="90" placeholder="Ex. Envoyer la proposition" required autofocus></label>
+      <label>Objectif de la scène<input id="taskTitle" maxlength="90" placeholder="Ex. Envoyer la proposition" required autofocus></label>
       <div class="form-row">
         <label>Rôle
           <select id="taskRole"><option value="supporting">Second rôle</option><option value="headliner">Tête d’affiche</option><option value="extra">Figuration</option></select>
@@ -121,7 +121,8 @@
         <select id="taskNature"><option value="todo">À faire</option><option value="desire">J’ai envie</option><option value="urgent">Urgent</option><option value="waiting">En attente</option></select>
       </label>
       <label class="scenario-field">Scénario<select id="taskScenario"></select></label>
-      <label class="date-field">Échéance<input id="taskDue" type="date"></label>
+      <label class="actions-field">Actions<textarea id="taskActions" rows="3" placeholder="Une action par ligne"></textarea></label>
+      <label class="date-field">Fin de tournage<input id="taskDue" type="date"></label>
       <div class="consequence-fields">
         <label>Si je la fais…<textarea id="taskPositive" rows="2" placeholder="Ce que cela m’apportera"></textarea></label>
         <label>Si je ne la fais pas…<textarea id="taskNegative" rows="2" placeholder="Ce qui risque de se passer"></textarea></label>
@@ -168,8 +169,21 @@
       <button class="close-button" id="closeScenarios" aria-label="Fermer">×</button>
       <p class="eyebrow">PLUS · SCÉNARIOS</p>
       <h2>Les histoires<br>en cours</h2>
-      <div id="scenarioList"></div>
+      <div class="task-search">
+        <label for="taskSearch">Rechercher une scène</label>
+        <input id="taskSearch" type="search" placeholder="Nom, action, scénario, semaine…">
+        <div id="searchResults"></div>
+      </div>
+      <div class="scenario-section">
+        <p class="drawer-heading">À l’affiche cette semaine</p>
+        <div id="weeklyScenarioList"></div>
+      </div>
+      <div class="scenario-section">
+        <p class="drawer-heading">Tous les scénarios</p>
+        <div id="scenarioList"></div>
+      </div>
       <form id="scenarioForm" class="scenario-form">
+        <input id="scenarioEmoji" class="emoji-input" placeholder="🎬" maxlength="4" aria-label="Emoji">
         <input id="scenarioName" placeholder="Nouveau scénario" maxlength="35" required>
         <button>Créer</button>
       </form>
@@ -183,6 +197,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=7"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>
