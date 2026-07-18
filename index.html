@@ -19,7 +19,7 @@
     <header class="mobile-header">
       <button class="more-button" id="scenarioTrigger" aria-label="Plus">•••</button>
       <a class="mobile-brand" href="#">PRO <i>CAST</i></a>
-      <button class="mobile-add" id="mobileAdd" aria-label="Ajouter une tâche">＋</button>
+      <span class="header-spacer" aria-hidden="true"></span>
     </header>
     <div class="environment-switch" role="group" aria-label="Environnement">
       <button class="active" data-environment="pro">Pro</button>
@@ -45,6 +45,7 @@
         <div id="mobileStats"></div>
       </section>
     </main>
+    <button class="floating-add" id="mobileAdd" aria-label="Ajouter une tâche"><span>＋</span><small>Ajouter</small></button>
     <nav class="bottom-nav" aria-label="Navigation principale">
       <button class="active" data-page="dailyPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M10 7h8c3 0 5 2 5 5s-2 5-5 5h-8z"/><path d="M8 8h3v8H8m15-6h3v4h-3M12 18v3h7v-4m-3 4v3m0 0-5 3m5-3 5 3"/></svg>Quotidien</button>
       <button data-page="weekPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M6 9h21v16H6zM6 9l4-6h20l-3 6M11 3 8 9m9-6-3 6m10-6-3 6M11 14h4m4 0h4m-12 5h4m4 0h4"/></svg>Semaine</button>
@@ -182,6 +183,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
