@@ -9,8 +9,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="v2.css">
+  <link rel="stylesheet" href="v3.css">
+  <link rel="stylesheet" href="v4.css">
+  <link rel="stylesheet" href="drawer.css">
 </head>
 <body>
+  <div class="mobile-app" id="mobileApp">
+    <header class="mobile-header">
+      <button class="more-button" id="scenarioTrigger" aria-label="Plus">•••</button>
+      <a class="mobile-brand" href="#">PRO <i>CAST</i></a>
+      <button class="mobile-add" id="mobileAdd" aria-label="Ajouter une tâche">＋</button>
+    </header>
+    <div class="environment-switch" role="group" aria-label="Environnement">
+      <button class="active" data-environment="pro">Pro</button>
+      <button data-environment="personal">Perso</button>
+    </div>
+    <main class="mobile-main">
+      <section class="mobile-page active" id="dailyPage">
+        <p class="mobile-kicker" id="mobileDate"></p>
+        <h1>Les têtes<br><i>d’affiche</i></h1>
+        <p class="mobile-lead">Choisis jusqu’à trois priorités pour aujourd’hui.</p>
+        <div class="priority-stack" id="priorityStack"></div>
+        <button class="mobile-review" id="mobileReview">Faire le point <b id="mobileReviewCount">0</b></button>
+      </section>
+      <section class="mobile-page" id="weekPage">
+        <p class="mobile-kicker" id="weekKicker">CETTE SEMAINE</p>
+        <h1>La<br><i>distribution</i></h1>
+        <div class="scenario-filters" id="scenarioFilters"></div>
+        <div class="mobile-week-list" id="mobileWeekList"></div>
+      </section>
+      <section class="mobile-page" id="observePage">
+        <p class="mobile-kicker">MON OBSERVATION</p>
+        <h1>Comment je<br><i>fonctionne</i></h1>
+        <div id="mobileStats"></div>
+      </section>
+    </main>
+    <nav class="bottom-nav" aria-label="Navigation principale">
+      <button class="active" data-page="dailyPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M10 7h8c3 0 5 2 5 5s-2 5-5 5h-8z"/><path d="M8 8h3v8H8m15-6h3v4h-3M12 18v3h7v-4m-3 4v3m0 0-5 3m5-3 5 3"/></svg>Quotidien</button>
+      <button data-page="weekPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M6 9h21v16H6zM6 9l4-6h20l-3 6M11 3 8 9m9-6-3 6m10-6-3 6M11 14h4m4 0h4m-12 5h4m4 0h4"/></svg>Semaine</button>
+      <button data-page="observePage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><circle cx="14" cy="12" r="7"/><path d="m19 17 7 7M11 12h6m-3-3v6"/></svg>Observation</button>
+    </nav>
+  </div>
   <div class="shell">
     <header class="topbar">
       <a class="brand" href="#" aria-label="Accueil Pro Cast">
@@ -28,6 +68,10 @@
         <p class="eyebrow" id="dateLabel"></p>
         <h1>Aujourd’hui<br><i>à l’affiche</i></h1>
         <p class="motto">cras, cras; semper cras,<br>sic evadit aetas</p>
+        <div class="insight-actions">
+          <button id="reviewTrigger" class="review-trigger">Faire le point <b id="reviewCount">0</b></button>
+          <button id="statsTrigger" class="stats-trigger">Mon observation →</button>
+        </div>
       </section>
 
       <section class="headliner" id="headlinerCard">
@@ -62,8 +106,9 @@
   <dialog id="taskDialog">
     <form method="dialog" id="taskForm">
       <button class="close-button" value="cancel" aria-label="Fermer">×</button>
-      <p class="eyebrow">NOUVEAU RÔLE</p>
-      <h2>Qu’est-ce qui mérite<br>votre attention ?</h2>
+      <p class="eyebrow" id="dialogEyebrow">NOUVEAU RÔLE</p>
+      <h2 id="dialogTitle">Qu’est-ce qui mérite<br>votre attention ?</h2>
+      <input type="hidden" id="editingId">
       <label>Tâche<input id="taskTitle" maxlength="90" placeholder="Ex. Envoyer la proposition" required autofocus></label>
       <div class="form-row">
         <label>Rôle
@@ -71,8 +116,69 @@
         </label>
         <label>Durée<input id="taskDuration" maxlength="12" placeholder="25 min"></label>
       </div>
-      <button class="primary-button" value="default">Entrer en scène →</button>
+      <label class="nature-field">Nature
+        <select id="taskNature"><option value="todo">À faire</option><option value="desire">J’ai envie</option><option value="urgent">Urgent</option><option value="waiting">En attente</option></select>
+      </label>
+      <label class="scenario-field">Scénario<select id="taskScenario"></select></label>
+      <label class="date-field">Échéance<input id="taskDue" type="date"></label>
+      <div class="consequence-fields">
+        <label>Si je la fais…<textarea id="taskPositive" rows="2" placeholder="Ce que cela m’apportera"></textarea></label>
+        <label>Si je ne la fais pas…<textarea id="taskNegative" rows="2" placeholder="Ce qui risque de se passer"></textarea></label>
+      </div>
+      <div class="dialog-actions">
+        <button class="danger-button" type="button" id="deleteTask">Supprimer</button>
+        <div><button class="cancel-button" type="button" id="cancelTask">Annuler</button><button class="primary-button" value="default" id="saveTask">Entrer en scène →</button></div>
+      </div>
     </form>
+  </dialog>
+
+  <dialog id="reviewDialog" class="wide-dialog">
+    <div class="review-panel">
+      <button class="close-button" id="closeReview" aria-label="Fermer">×</button>
+      <p class="eyebrow">LE MOMENT DU CHOIX</p>
+      <p class="review-progress" id="reviewProgress"></p>
+      <h2 id="reviewTaskTitle"></h2>
+      <div class="consequence-card" id="reviewConsequences"></div>
+      <p class="review-question">Qu’est-ce qui est juste maintenant ?</p>
+      <div class="decision-grid">
+        <button data-decision="today"><b>Aujourd’hui</b><span>Je la garde à l’affiche</span></button>
+        <button data-decision="reschedule"><b>Nouvelle date</b><span>Je la reprogramme consciemment</span></button>
+        <button data-decision="split"><b>Découper</b><span>Je choisis une première petite scène</span></button>
+        <button data-decision="abandon"><b>Abandonner</b><span>Je libère cette place</span></button>
+        <button data-decision="delegate"><b>Déléguer</b><span>Je confie le rôle</span></button>
+      </div>
+      <div class="decision-detail" id="decisionDetail"></div>
+    </div>
+  </dialog>
+
+  <dialog id="statsDialog" class="wide-dialog">
+    <div class="stats-panel">
+      <button class="close-button" id="closeStats" aria-label="Fermer">×</button>
+      <p class="eyebrow">MON OBSERVATION</p>
+      <h2>Comment je réagis<br><i>quand ça résiste</i></h2>
+      <div class="stats-summary" id="statsSummary"></div>
+      <div class="stats-bars" id="statsBars"></div>
+      <p class="stats-note" id="statsNote"></p>
+    </div>
+  </dialog>
+
+  <dialog id="scenarioDialog" class="scenario-dialog">
+    <div class="scenario-panel">
+      <button class="close-button" id="closeScenarios" aria-label="Fermer">×</button>
+      <p class="eyebrow">PLUS · SCÉNARIOS</p>
+      <h2>Les histoires<br>en cours</h2>
+      <div id="scenarioList"></div>
+      <form id="scenarioForm" class="scenario-form">
+        <input id="scenarioName" placeholder="Nouveau scénario" maxlength="35" required>
+        <button>Créer</button>
+      </form>
+      <section class="data-safety">
+        <p class="eyebrow">MES DONNÉES</p>
+        <p>Conserve une copie avant une évolution importante.</p>
+        <div><button id="exportData" type="button">Sauvegarder</button><button id="importData" type="button">Restaurer</button></div>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </section>
+    </div>
   </dialog>
 
   <div class="toast" id="toast" role="status"></div>
