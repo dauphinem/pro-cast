@@ -1,4 +1,8 @@
 @media(max-width:780px){
+  .mobile-app.environment-personal{--environment-bg:#f1e4e1}
+  .environment-personal .priority-card{background:#593638}
+  .environment-personal .priority-card:nth-child(2){background:#704448}
+  .environment-personal .priority-card:nth-child(3){background:#87565a}
   .priority-card h2,
   .mobile-task h3,
   .episode-heading b,
