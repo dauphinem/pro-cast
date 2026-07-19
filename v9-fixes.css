@@ -29,6 +29,25 @@
   .scenario-panel h2 i{color:var(--red);font-weight:500}
   .drawer-motto{margin:-14px 0 24px;color:var(--muted);font:italic 13px/1.45 "Playfair Display",serif}
   .date-chips button.selected{background:var(--red);color:#fff}
+  .observation-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:26px 0 30px}
+  .observation-summary article{min-width:0;padding:15px 10px;border-radius:16px;background:rgba(255,255,255,.68)}
+  .observation-summary b{display:block;color:var(--red);font-size:22px;line-height:1.05}
+  .observation-summary span{display:block;margin-top:6px;color:var(--muted);font-size:8px;line-height:1.25;text-transform:uppercase;letter-spacing:.06em}
+  .observation-section{margin:28px 0}
+  .observation-label{margin:0 0 12px;color:var(--red);font-size:9px;font-weight:700;letter-spacing:.13em}
+  .insight-grid,.hypothesis-list{display:grid;gap:9px}
+  .insight-grid article,.hypothesis-list article,.observation-empty{padding:16px;border-radius:16px;background:rgba(255,255,255,.72)}
+  .insight-grid span{display:block;color:var(--muted);font-size:8px;font-weight:700;letter-spacing:.1em}
+  .insight-grid b,.hypothesis-list b{display:block;margin-top:6px;font-size:15px;line-height:1.3}
+  .insight-grid small,.hypothesis-list small{display:block;margin-top:5px;color:var(--muted);font-size:10px;line-height:1.4}
+  .observation-empty{color:var(--muted);font-size:12px;line-height:1.5}
+  .observation-section .stats-bars{padding:16px;border-radius:16px;background:rgba(255,255,255,.72)}
+  .review-meaning{padding:14px;border-radius:14px;background:#f8f7f4}
+  .review-meaning+.review-meaning{margin-top:10px}
+  .review-meaning>b{display:block;margin-bottom:9px;font-size:11px}
+  .review-suggestions{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+  .review-suggestions button{flex:0 0 auto;border:0;border-radius:15px;background:#e9e7e2;padding:7px 9px;font-size:10px;color:var(--ink)}
+  .review-meaning textarea{width:100%;min-height:58px;margin:0;border:1px solid #ddd8d0;border-radius:11px;background:white;padding:10px;font:16px -apple-system,BlinkMacSystemFont,sans-serif;resize:vertical}
   .compact-section select[hidden]{display:none!important}
   .floating-add.icon-only{width:52px;height:52px;min-width:52px;padding:0;border-radius:50%;display:grid;place-items:center}
   .floating-add.icon-only span{font-size:29px;line-height:1;transform:translateY(-1px)}
