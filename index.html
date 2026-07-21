@@ -20,7 +20,8 @@
   <link rel="stylesheet" href="v4.css">
   <link rel="stylesheet" href="drawer.css">
   <link rel="stylesheet" href="v9.css">
-  <link rel="stylesheet" href="v9-fixes.css?v=10.4-local">
+  <link rel="stylesheet" href="v9-fixes.css?v=11-local">
+  <link rel="stylesheet" href="v11.css?v=11-local">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -41,6 +42,7 @@
         <button class="revision-card" id="revisionCard"><span>↺</span><div><b id="revisionTitle">Revisionnage</b><small id="revisionSubtitle"></small></div><strong id="revisionBadge">0</strong></button>
         <section class="daily-motifs" id="dailyMotifs"></section>
         <div class="priority-stack" id="priorityStack"></div>
+        <details class="priority-queue" id="priorityQueue"><summary><span>Prochainement à l’affiche</span><b id="priorityQueueCount">0</b></summary><div id="priorityQueueList"></div></details>
         <button class="mobile-review" id="mobileReview">Faire le point <b id="mobileReviewCount">0</b></button>
       </section>
       <section class="mobile-page" id="weekPage">
@@ -140,8 +142,12 @@
   <dialog id="planScenarioDialog" class="ios-sheet compact-sheet"><form id="planScenarioForm" class="duration-panel"><p class="eyebrow">NOUVEAU SCÉNARIO</p><h2>Quelle histoire<br>commence ici ?</h2><div class="plan-scenario-fields"><input id="planScenarioEmoji" class="emoji-input" value="🎬" maxlength="4" aria-label="Emoji du scénario"><input id="planScenarioName" placeholder="Nom du scénario" maxlength="35" required></div><div class="emoji-palette" id="planEmojiPalette"></div><button class="finish-primary">Créer le scénario</button><button type="button" class="sheet-cancel" id="cancelPlanScenario">Annuler</button></form></dialog>
 
   <dialog id="decorDialog" class="ios-sheet">
-    <form id="decorForm" class="scene-form"><header class="sheet-header"><button type="button" class="sheet-cancel" id="cancelDecor">Annuler</button><b>DÉCOR</b><button class="sheet-save" id="saveDecor">Créer</button></header><div class="sheet-content"><h2>Une checklist<br>à réutiliser</h2><input type="hidden" id="editingDecorId"><label class="ios-field">Nom du décor<input id="decorTitle" required placeholder="Ex. Checklist Valise"></label><label class="ios-field">Scénario<select id="decorScenario"></select></label><section class="actions-builder decor-builder"><div class="section-title"><span>Éléments du décor</span><small>Une checklist stable et réutilisable.</small></div><div id="decorItemRows"></div><button type="button" class="add-action" id="addDecorItem">＋ Ajouter un élément</button></section><button type="button" class="delete-scene" id="deleteDecor">Supprimer le décor</button></div></form>
+    <form id="decorForm" class="scene-form"><header class="sheet-header"><button type="button" class="sheet-cancel" id="cancelDecor">Annuler</button><b>DÉCOR</b><button class="sheet-save" id="saveDecor">Créer</button></header><div class="sheet-content"><h2>Une checklist<br>à réutiliser</h2><input type="hidden" id="editingDecorId"><div class="decor-title-fields"><input id="decorEmoji" class="emoji-input" value="🎬" maxlength="4" aria-label="Emoji du décor"><label class="ios-field">Nom du décor<input id="decorTitle" required placeholder="Ex. Checklist Valise"></label></div><label class="ios-field">Scénario<select id="decorScenario"></select></label><section class="actions-builder decor-builder"><div class="section-title"><span>Éléments du décor</span><small>Une checklist stable et réutilisable.</small></div><div id="decorItemRows"></div><button type="button" class="add-action" id="addDecorItem">＋ Ajouter un élément</button></section><button type="button" class="delete-scene" id="deleteDecor">Supprimer le décor</button></div></form>
   </dialog>
+
+  <dialog id="decorDetailDialog" class="ios-sheet compact-sheet"><div class="duration-panel decor-detail-panel"><button class="close-button" id="closeDecorDetail" aria-label="Fermer">×</button><p class="eyebrow">DÉCOR</p><h2 id="decorDetailTitle"></h2><p id="decorDetailCount"></p><div class="decor-detail-actions"><button class="finish-primary" id="useDecorDetail">Utiliser</button><button id="editDecorDetail">Modifier</button><button id="shareDecorDetail">Partager</button></div></div></dialog>
+
+  <dialog id="sceneQuickDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow">REVOIR LA SCÈNE</p><h2 id="sceneQuickTitle"></h2><button class="creation-choice" data-quick="reschedule"><b>Choisir une autre date</b><span>Reprogrammer consciemment</span></button><button class="creation-choice" data-quick="delegate"><b>Déléguer</b><span>Confier le rôle</span></button><button class="creation-choice" data-quick="split"><b>Découper</b><span>Créer une première action</span></button><button class="creation-choice" data-quick="abandon"><b>Abandonner</b><span>Libérer cette place</span></button><button class="sheet-cancel" id="cancelSceneQuick">Annuler</button></div></dialog>
 
   <dialog id="motifDialog" class="ios-sheet">
     <form id="motifForm" class="scene-form"><header class="sheet-header"><button type="button" class="sheet-cancel" id="cancelMotif">Annuler</button><b>MOTIF</b><button class="sheet-save" id="saveMotif">Créer</button></header><div class="sheet-content"><h2>Ce que tu veux<br>faire revenir</h2><input type="hidden" id="editingMotifId"><label class="ios-field">Objectif du motif<input id="motifTitle" required placeholder="Ex. Marcher vingt minutes"></label><label class="ios-field">Scénario<select id="motifScenario"></select></label><label class="ios-field">Fréquence<select id="motifFrequency"><option value="daily">Tous les jours</option><option value="custom">Certains jours</option></select></label><fieldset class="motif-days" id="motifDays"><legend>Jours prévus</legend><label><input type="checkbox" value="1">L</label><label><input type="checkbox" value="2">M</label><label><input type="checkbox" value="3">M</label><label><input type="checkbox" value="4">J</label><label><input type="checkbox" value="5">V</label><label><input type="checkbox" value="6">S</label><label><input type="checkbox" value="0">D</label></fieldset><label class="ios-field">Date de début<input id="motifStart" type="date"></label><button type="button" class="delete-scene" id="pauseMotif">Mettre en pause</button><button type="button" class="delete-scene" id="deleteMotif">Supprimer le motif</button></div></form>
@@ -204,6 +210,10 @@
         <p class="drawer-heading">Décors</p>
         <div id="drawerDecorList"></div>
       </div>
+      <div class="scenario-section appearance-section">
+        <label class="drawer-heading" for="appearanceMode">Apparence</label>
+        <select id="appearanceMode"><option value="auto">Automatique</option><option value="light">Clair</option><option value="dark">Sombre</option></select>
+      </div>
       <form id="scenarioForm" class="scenario-form scenario-edit-form">
         <input id="editingScenarioId" type="hidden">
         <input id="scenarioEmoji" class="emoji-input" placeholder="🎬" maxlength="4" aria-label="Emoji">
@@ -217,6 +227,6 @@
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=10.4-local"></script>
+  <script src="app.js?v=11-local"></script>
 </body>
 </html>

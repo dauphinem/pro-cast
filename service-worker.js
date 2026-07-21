@@ -1,5 +1,5 @@
-const CACHE="pro-cast-v10-4-local";
-const ASSETS=["./","./index.html","./styles.css","./v2.css","./v3.css","./v4.css","./drawer.css","./v9.css","./v9-fixes.css?v=10.4-local","./app.js?v=10.4-local","./manifest.webmanifest","./icons/icon-192.png","./icons/icon-512.png","./icons/apple-touch-icon.png"];
+const CACHE="pro-cast-v11-local";
+const ASSETS=["./","./index.html","./styles.css","./v2.css","./v3.css","./v4.css","./drawer.css","./v9.css","./v9-fixes.css?v=11-local","./v11.css?v=11-local","./app.js?v=11-local","./manifest.webmanifest","./icons/icon-192.png","./icons/icon-512.png","./icons/apple-touch-icon.png"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{if(event.request.method!=="GET")return;event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response}).catch(()=>caches.match(event.request).then(hit=>hit||caches.match("./index.html"))))});
