@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="v9.css">
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
+  <link rel="stylesheet" href="v12.css?v=12-visual-integration">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -53,15 +54,22 @@
       </section>
       <section class="mobile-page" id="observePage">
         <p class="mobile-kicker">LES COULISSES</p>
-        <h1>Ce qui se joue<br><i>en coulisses</i></h1>
+        <h1>Les<br><i>coulisses</i></h1>
         <div id="mobileStats"></div>
       </section>
+      <section class="mobile-page" id="planningPage">
+        <p class="mobile-kicker">CALENDRIER</p>
+        <h1>Le<br><i>planning</i></h1>
+        <p class="mobile-lead">Les prochaines scènes, rangées par date.</p>
+        <div class="planning-list" id="planningList"></div>
+      </section>
     </main>
-    <button class="floating-add icon-only" id="mobileAdd" aria-label="Ajouter une tâche"><span>＋</span></button>
     <nav class="bottom-nav" aria-label="Navigation principale">
-      <button class="active" data-page="dailyPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M10 7h8c3 0 5 2 5 5s-2 5-5 5h-8z"/><path d="M8 8h3v8H8m15-6h3v4h-3M12 18v3h7v-4m-3 4v3m0 0-5 3m5-3 5 3"/></svg>Ça tourne</button>
-      <button data-page="weekPage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M6 9h21v16H6zM6 9l4-6h20l-3 6M11 3 8 9m9-6-3 6m10-6-3 6M11 14h4m4 0h4m-12 5h4m4 0h4"/></svg>Plan de tournage</button>
-      <button data-page="observePage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><circle cx="14" cy="12" r="7"/><path d="m19 17 7 7M11 12h6m-3-3v6"/></svg>Coulisses</button>
+      <button class="active" data-page="dailyPage" aria-label="Ça tourne"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M10 7h8c3 0 5 2 5 5s-2 5-5 5h-8z"/><path d="M8 8h3v8H8m15-6h3v4h-3M12 18v3h7v-4m-3 4v3m0 0-5 3m5-3 5 3"/></svg><small>Ça tourne</small></button>
+      <button data-page="weekPage" aria-label="Plan de tournage"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><path d="M6 9h21v16H6zM6 9l4-6h20l-3 6M11 3 8 9m9-6-3 6m10-6-3 6M11 14h4m4 0h4m-12 5h4m4 0h4"/></svg><small>Plan</small></button>
+      <button class="dock-add" id="mobileAdd" aria-label="Ajouter"><span>＋</span></button>
+      <button data-page="planningPage" aria-label="Planning"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><rect x="5" y="6" width="22" height="19" rx="4"/><path d="M5 12h22M10 3v6M22 3v6M10 16h4m4 0h4m-12 5h4m4 0h4"/></svg><small>Planning</small></button>
+      <button data-page="observePage" aria-label="Coulisses"><svg class="nav-icon" viewBox="0 0 32 28" aria-hidden="true"><circle cx="14" cy="12" r="7"/><path d="m19 17 7 7M11 12h6m-3-3v6"/></svg><small>Coulisses</small></button>
     </nav>
   </div>
   <div class="shell">
@@ -228,6 +236,6 @@
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=11-1-local"></script>
+  <script src="app.js?v=12-visual-integration"></script>
 </body>
 </html>
