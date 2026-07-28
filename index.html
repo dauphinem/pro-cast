@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="v9.css">
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
-  <link rel="stylesheet" href="v12.css?v=12-6-planning-gestures">
+  <link rel="stylesheet" href="v12.css?v=12-10-card-meta">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -37,9 +37,8 @@
     </div>
     <main class="mobile-main">
       <section class="mobile-page active" id="dailyPage">
-        <p class="mobile-kicker" id="mobileDate"></p>
         <h1>Les têtes<br><i>d’affiche</i></h1>
-        <p class="mobile-lead">Choisis jusqu’à trois priorités pour aujourd’hui.</p>
+        <p class="mobile-date-under-title" id="mobileDate"></p>
         <button class="revision-card" id="revisionCard"><span>↺</span><div><b id="revisionTitle">Revisionnage</b><small id="revisionSubtitle"></small></div><strong id="revisionBadge">0</strong></button>
         <section class="daily-motifs" id="dailyMotifs"></section>
         <div class="priority-stack" id="priorityStack"></div>
@@ -47,23 +46,18 @@
         <button class="mobile-review" id="mobileReview">Faire le point <b id="mobileReviewCount">0</b></button>
       </section>
       <section class="mobile-page" id="weekPage">
-        <p class="mobile-kicker" id="weekKicker">CETTE SEMAINE</p>
         <h1>Le plan<br>de <i>tournage</i></h1>
-        <p class="mobile-lead plan-lead">Compose la distribution de la semaine.</p>
         <section class="plan-episode-card" id="planEpisodeSummary"></section>
-        <div class="plan-section-head"><span>À L’AFFICHE</span><button type="button" onclick="openScenarios()">Tout voir</button></div>
+        <div class="plan-section-head"><span>À L’AFFICHE</span></div>
         <div class="scenario-filters" id="scenarioFilters"></div>
         <div class="mobile-week-list" id="mobileWeekList"></div>
       </section>
       <section class="mobile-page" id="observePage">
-        <p class="mobile-kicker">LES COULISSES</p>
         <h1>Les<br><i>coulisses</i></h1>
         <div id="mobileStats"></div>
       </section>
       <section class="mobile-page" id="planningPage">
-        <p class="mobile-kicker">CALENDRIER</p>
         <h1>Le<br><i>planning</i></h1>
-        <p class="mobile-lead">Les prochaines scènes, rangées par date.</p>
         <div class="planning-list" id="planningList"></div>
       </section>
     </main>
@@ -240,6 +234,6 @@
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=12-7-everywhere-gestures"></script>
+  <script src="app.js?v=12-10-card-meta"></script>
 </body>
 </html>
