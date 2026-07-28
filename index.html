@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer data-google-identity="true"></script>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v2.css">
   <link rel="stylesheet" href="v3.css">
@@ -22,7 +23,7 @@
   <link rel="stylesheet" href="v9.css">
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
-  <link rel="stylesheet" href="v12.css?v=12-10-card-meta">
+  <link rel="stylesheet" href="v12.css?v=12-13-google-live">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -134,8 +135,24 @@
       <section class="actions-builder"><div class="section-title"><span>Actions</span><small>Une scène peut en contenir autant que nécessaire.</small></div><div id="actionRows"></div><button type="button" class="add-action" id="addAction">＋ Ajouter une action</button></section>
       <details class="meaning-details"><summary>Pourquoi cette scène compte-t-elle ?</summary><div class="meaning-group"><span>Ce que cette scène rend possible</span><div class="suggestion-chips" data-target="taskPositive"><button type="button">Moins de charge mentale</button><button type="button">Gagner du temps ensuite</button><button type="button">Avancer vers un objectif</button><button type="button">Aider quelqu’un</button><button type="button">Retrouver du calme</button></div><textarea id="taskPositive" rows="2" placeholder="Autre formulation…"></textarea></div><div class="meaning-group"><span>Si je la laisse de côté</span><div class="suggestion-chips" data-target="taskNegative"><button type="button">Davantage de stress</button><button type="button">Un retard</button><button type="button">Un coût supplémentaire</button><button type="button">Un impact sur quelqu’un</button><button type="button">Rien de grave</button></div><textarea id="taskNegative" rows="2" placeholder="Autre formulation…"></textarea></div></details>
       <button class="delete-scene" type="button" id="deleteTask">Supprimer la scène</button>
+      <button class="google-calendar-action" type="button" id="googleCalendarAction">Ajouter à Google Agenda</button>
       </div>
     </form>
+  </dialog>
+
+  <dialog id="googleCalendarDialog" class="ios-sheet compact-sheet">
+    <div class="duration-panel google-calendar-setup">
+      <button class="close-button" id="closeGoogleCalendar" aria-label="Fermer">×</button>
+      <p class="eyebrow">PLANNING</p>
+      <h2>Mon Google<br>Agenda</h2>
+      <p>Pro Cast affichera les événements de ton agenda principal pendant cette session.</p>
+      <label class="ios-field">Identifiant client Google<input id="googleClientId" inputmode="url" autocomplete="off" placeholder="…apps.googleusercontent.com"></label>
+      <p class="google-origin-note">Origine JavaScript autorisée : <b>http://localhost:8080</b></p>
+      <a class="google-cloud-link" href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer">Ouvrir Google Cloud Console ↗</a>
+      <small id="googleCalendarSetupStatus">Ajoute l’identifiant client Web créé dans Google Cloud.</small>
+      <button class="finish-primary" type="button" id="connectGoogleCalendar">Connecter mon compte Google</button>
+      <button class="delete-scene" type="button" id="googleDisconnect">Déconnecter Google Agenda</button>
+    </div>
   </dialog>
 
   <dialog id="durationDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow" id="durationEyebrow">ACTION TERMINÉE</p><h2>Combien de temps<br>environ ?</h2><p id="durationActionTitle"></p><div class="duration-choices"><button data-minutes="5">5 min</button><button data-minutes="10">10 min</button><button data-minutes="15">15 min</button><button data-minutes="30">30 min</button><button data-minutes="45">45 min</button><button data-minutes="60">1 h</button><button data-minutes="0">Je ne sais pas</button></div><button class="sheet-cancel" id="cancelDuration">Annuler</button></div></dialog>
@@ -234,6 +251,6 @@
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=12-10-card-meta"></script>
+  <script src="app.js?v=12-13-google-live"></script>
 </body>
 </html>
