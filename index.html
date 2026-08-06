@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#f4f0e8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -23,7 +23,8 @@
   <link rel="stylesheet" href="v9.css">
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
-  <link rel="stylesheet" href="v12.css?v=12-13-google-live">
+  <link rel="stylesheet" href="v12.css?v=13-0">
+  <link rel="stylesheet" href="v13.css?v=13-0">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -45,6 +46,7 @@
         <div class="priority-stack" id="priorityStack"></div>
         <details class="priority-queue" id="priorityQueue"><summary><span>Prochainement à l’affiche</span><b id="priorityQueueCount">0</b></summary><div id="priorityQueueList"></div></details>
         <button class="mobile-review" id="mobileReview">Faire le point <b id="mobileReviewCount">0</b></button>
+        <button class="day-close-trigger" id="dayCloseTrigger"><span>✦</span><div><b>Clôturer ma journée</b><small id="dayCloseSubtitle">Disponible à partir de 20 h</small></div><strong>›</strong></button>
       </section>
       <section class="mobile-page" id="weekPage">
         <h1>Le plan<br>de <i>tournage</i></h1>
@@ -128,12 +130,12 @@
       <div class="sheet-content"><h2 id="dialogTitle">Qu’est-ce qui mérite ton attention ?</h2>
       <input type="hidden" id="editingId">
       <label class="ios-field">Objectif de la scène<input id="taskTitle" maxlength="90" placeholder="Ex. Préparer la réunion" required autofocus></label>
+      <section class="compact-section task-primary-field"><span>Fin de tournage</span><div class="horizontal-chips date-chips"><button type="button" data-date-offset="0">Aujourd’hui</button><button type="button" data-date-offset="1">Demain</button><button type="button" data-date-sunday>Dimanche</button><button type="button" id="customDateButton">Choisir…</button></div><input id="taskDue" class="compact-date" type="date"></section>
       <section class="compact-section"><span>Scénario</span><div class="horizontal-chips" id="scenarioChips"></div><select id="taskScenario" hidden></select></section>
-      <section class="compact-section"><span>Rôle</span><div class="horizontal-chips choice-chips" data-choice="taskRole"><button type="button" data-value="supporting">Second rôle</button><button type="button" data-value="extra">Figuration</button><button type="button" data-value="headliner">Tête d’affiche</button></div><select id="taskRole" hidden><option value="supporting">Second rôle</option><option value="extra">Figuration</option><option value="headliner">Tête d’affiche</option></select></section>
-      <section class="compact-section"><span>Nature</span><div class="horizontal-chips choice-chips" data-choice="taskNature"><button type="button" data-value="todo">À faire</button><button type="button" data-value="urgent">Urgent</button><button type="button" data-value="desire">Envie</button><button type="button" data-value="waiting">En attente</button></div><select id="taskNature" hidden><option value="todo">À faire</option><option value="urgent">Urgent</option><option value="desire">Envie</option><option value="waiting">En attente</option></select></section>
-      <section class="compact-section"><span>Fin de tournage</span><div class="horizontal-chips date-chips"><button type="button" data-date-offset="0">Aujourd’hui</button><button type="button" data-date-offset="1">Demain</button><button type="button" data-date-sunday>Dimanche</button><button type="button" id="customDateButton">Choisir…</button></div><input id="taskDue" class="compact-date" type="date"></section>
+      <section class="compact-section"><span>Rôle</span><div class="horizontal-chips choice-chips" data-choice="taskRole"><button type="button" data-value="supporting">Second rôle</button><button type="button" data-value="headliner">Tête d’affiche</button></div><select id="taskRole" hidden><option value="supporting">Second rôle</option><option value="headliner">Tête d’affiche</option></select></section>
+      <section class="compact-section task-nature-step" id="taskNatureSection"><span>Nature</span><p>Comment cette scène doit-elle entrer au programme ?</p><div class="horizontal-chips choice-chips" data-choice="taskNature"><button type="button" data-value="todo">À faire</button><button type="button" data-value="urgent">Urgent</button><button type="button" data-value="desire">Envie</button></div><select id="taskNature" hidden><option value="todo">À faire</option><option value="urgent">Urgent</option><option value="desire">Envie</option></select></section>
       <section class="actions-builder"><div class="section-title"><span>Actions</span><small>Une scène peut en contenir autant que nécessaire.</small></div><div id="actionRows"></div><button type="button" class="add-action" id="addAction">＋ Ajouter une action</button></section>
-      <details class="meaning-details"><summary>Pourquoi cette scène compte-t-elle ?</summary><div class="meaning-group"><span>Ce que cette scène rend possible</span><div class="suggestion-chips" data-target="taskPositive"><button type="button">Moins de charge mentale</button><button type="button">Gagner du temps ensuite</button><button type="button">Avancer vers un objectif</button><button type="button">Aider quelqu’un</button><button type="button">Retrouver du calme</button></div><textarea id="taskPositive" rows="2" placeholder="Autre formulation…"></textarea></div><div class="meaning-group"><span>Si je la laisse de côté</span><div class="suggestion-chips" data-target="taskNegative"><button type="button">Davantage de stress</button><button type="button">Un retard</button><button type="button">Un coût supplémentaire</button><button type="button">Un impact sur quelqu’un</button><button type="button">Rien de grave</button></div><textarea id="taskNegative" rows="2" placeholder="Autre formulation…"></textarea></div></details>
+      <input id="taskPositive" type="hidden"><input id="taskNegative" type="hidden">
       <button class="delete-scene" type="button" id="deleteTask">Supprimer la scène</button>
       <button class="google-calendar-action" type="button" id="googleCalendarAction">Ajouter à Google Agenda</button>
       </div>
@@ -172,8 +174,9 @@
   <dialog id="sceneQuickDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow">REVOIR LA SCÈNE</p><h2 id="sceneQuickTitle"></h2><button class="creation-choice" data-quick="reschedule"><b>Choisir une autre date</b><span>Reprogrammer consciemment</span></button><button class="creation-choice" data-quick="delegate"><b>Déléguer</b><span>Confier le rôle</span></button><button class="creation-choice" data-quick="split"><b>Découper</b><span>Créer une première action</span></button><button class="creation-choice" data-quick="abandon"><b>Abandonner</b><span>Libérer cette place</span></button><button class="sheet-cancel" id="cancelSceneQuick">Annuler</button></div></dialog>
 
   <dialog id="motifDialog" class="ios-sheet">
-    <form id="motifForm" class="scene-form"><header class="sheet-header"><button type="button" class="sheet-cancel" id="cancelMotif">Annuler</button><b>MOTIF</b><button class="sheet-save" id="saveMotif">Créer</button></header><div class="sheet-content"><h2>Ce que tu veux<br>faire revenir</h2><input type="hidden" id="editingMotifId"><label class="ios-field">Objectif du motif<input id="motifTitle" required placeholder="Ex. Marcher vingt minutes"></label><label class="ios-field">Scénario<select id="motifScenario"></select></label><label class="ios-field">Fréquence<select id="motifFrequency"><option value="daily">Tous les jours</option><option value="custom">Certains jours</option></select></label><fieldset class="motif-days" id="motifDays"><legend>Jours prévus</legend><label><input type="checkbox" value="1">L</label><label><input type="checkbox" value="2">M</label><label><input type="checkbox" value="3">M</label><label><input type="checkbox" value="4">J</label><label><input type="checkbox" value="5">V</label><label><input type="checkbox" value="6">S</label><label><input type="checkbox" value="0">D</label></fieldset><label class="ios-field">Date de début<input id="motifStart" type="date"></label><button type="button" class="delete-scene" id="pauseMotif">Mettre en pause</button><button type="button" class="delete-scene" id="deleteMotif">Supprimer le motif</button></div></form>
+    <form id="motifForm" class="scene-form"><header class="sheet-header"><button type="button" class="sheet-cancel" id="cancelMotif">Annuler</button><b>MOTIF</b><button class="sheet-save" id="saveMotif">Créer</button></header><div class="sheet-content"><h2>Ce que tu veux<br>faire revenir</h2><input type="hidden" id="editingMotifId"><label class="ios-field">Objectif du motif<input id="motifTitle" required placeholder="Ex. Arriver à 9 h"></label><label class="ios-field">Scénario<select id="motifScenario"></select></label><label class="ios-field">Fréquence<select id="motifFrequency"><option value="daily">Tous les jours</option><option value="custom">Certains jours</option></select></label><fieldset class="motif-days" id="motifDays"><legend>Jours prévus</legend><label><input type="checkbox" value="1">L</label><label><input type="checkbox" value="2">M</label><label><input type="checkbox" value="3">M</label><label><input type="checkbox" value="4">J</label><label><input type="checkbox" value="5">V</label><label><input type="checkbox" value="6">S</label><label><input type="checkbox" value="0">D</label></fieldset><label class="ios-field">Date de début<input id="motifStart" type="date"></label><section class="actions-builder motif-beacons-builder"><div class="section-title"><span>Balises de l’itinéraire</span><small>Les passages et conditions qui peuvent t’aider.</small></div><div id="motifBeaconRows"></div><button type="button" class="add-action" id="addMotifBeacon">＋ Ajouter une balise</button></section><button type="button" class="delete-scene" id="pauseMotif">Mettre en pause</button><button type="button" class="delete-scene" id="deleteMotif">Supprimer le motif</button></div></form>
   </dialog>
+  <dialog id="itineraryDialog" class="ios-sheet itinerary-dialog"><div class="sheet-content itinerary-content"><button class="close-button" id="closeItinerary" aria-label="Fermer">×</button><p class="eyebrow">ITINÉRAIRE DU MOTIF</p><h2 id="itineraryTitle"></h2><div id="itineraryContent"></div></div></dialog>
   <dialog id="consolidationDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow">MOTIF CONSOLIDÉ</p><h2>Le motif entre<br>dans le répertoire.</h2><p id="consolidationText"></p><button class="creation-choice" data-consolidation="space"><b>Espacer les rappels</b><span>Choisir moins de jours</span></button><button class="creation-choice" data-consolidation="stop"><b>Arrêter les rappels</b><span>Le motif reste dans l’historique</span></button><button class="creation-choice" data-consolidation="continue"><b>Continuer comme avant</b><span>Vers « Scène culte »</span></button></div></dialog>
 
   <dialog id="weeklyRitualDialog" class="ios-sheet ritual-dialog"><div class="sheet-content ritual-content"><button class="close-button" id="closeWeeklyRitual" aria-label="Fermer">×</button><div id="weeklyRitualContent"></div></div></dialog>
@@ -246,11 +249,31 @@
       </form>
       <div class="emoji-palette scenario-edit-emojis" id="emojiPalette" aria-label="Choisir un emoji"></div>
       <button class="cancel-scenario-edit" id="cancelScenarioEdit" type="button">Annuler la modification</button>
+      <button class="archive-scenario-action" id="archiveScenario" type="button">Archiver ce scénario</button>
+      <div class="scenario-section archived-scenarios-section">
+        <button class="archived-scenarios-toggle" id="archivedScenariosToggle" type="button"><span>Scénarios archivés</span><b id="archivedScenarioCount">0</b></button>
+        <div id="archivedScenarioList" hidden></div>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="dayCloseDialog" class="ios-sheet day-close-dialog">
+    <div class="sheet-content day-close-content">
+      <button class="close-button" id="closeDayClose" aria-label="Fermer">×</button>
+      <p class="eyebrow">RITUEL DE CLÔTURE · <span id="dayCloseEnvironment"></span></p>
+      <h2>Le clap de fin<br><i>de la journée</i></h2>
+      <div id="dayCloseReview"></div>
+      <section class="day-close-done"><div class="day-close-section-head"><span>CE QUE J’AI FAIT</span><b id="dayCloseDoneCount"></b></div><div id="dayCloseDoneList"></div></section>
+      <form id="dayCloseForm">
+        <label class="day-adjective">Un adjectif pour cette journée<input id="dayAdjective" maxlength="32" placeholder="Ex. intense, fluide, douce…" required></label>
+        <label class="day-rating"><span><b>Mon ressenti</b><output id="dayRatingOutput">5 / 10</output></span><input id="dayRating" type="range" min="0" max="10" value="5" step="1"><small><span>Difficile</span><span>Excellente</span></small></label>
+        <button class="finish-primary">Clôturer la journée</button>
+      </form>
+      <div class="day-close-saved" id="dayCloseSaved" hidden></div>
     </div>
   </dialog>
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=12-13-google-live"></script>
+  <script src="app.js?v=13-0"></script>
 </body>
 </html>

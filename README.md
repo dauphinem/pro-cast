@@ -1,5 +1,7 @@
 # Pro Cast
 
+Version actuelle : **13.0**
+
 Une to-do list éditoriale qui transforme la journée en casting de tâches.
 
 > *cras, cras; semper cras, sic evadit aetas*
