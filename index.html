@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
   <link rel="stylesheet" href="v12.css?v=13-1">
-  <link rel="stylesheet" href="v13.css?v=13-10">
+  <link rel="stylesheet" href="v13.css?v=13-12">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -58,6 +58,7 @@
         <h1>Les<br><i>coulisses</i></h1>
         <div class="coulisses-rituals">
           <button class="day-close-trigger day-prep-trigger" id="dayPrepTrigger"><span>☀</span><div><b>Préparer ma journée</b><small id="dayPrepSubtitle">Choisir les scènes du jour</small></div><strong>›</strong></button>
+          <button class="day-close-trigger week-prep-trigger" id="weekPrepTrigger"><span>▦</span><div><b>Préparer ma semaine</b><small id="weekPrepSubtitle">Organiser le prochain épisode</small></div><strong>›</strong></button>
           <button class="day-close-trigger" id="dayCloseTrigger"><span>✦</span><div><b>Clôturer ma journée</b><small id="dayCloseSubtitle">Faire le point et relire la journée</small></div><strong>›</strong></button>
         </div>
         <div id="mobileStats"></div>
@@ -138,6 +139,7 @@
       <section class="compact-section"><span>Rôle</span><div class="horizontal-chips choice-chips" data-choice="taskRole"><button type="button" data-value="supporting">Second rôle</button><button type="button" data-value="headliner">Tête d’affiche</button></div><select id="taskRole" hidden><option value="supporting">Second rôle</option><option value="headliner">Tête d’affiche</option></select></section>
       <section class="compact-section task-nature-step" id="taskNatureSection"><span>Nature</span><p>Comment cette scène doit-elle entrer au programme ?</p><div class="horizontal-chips choice-chips" data-choice="taskNature"><button type="button" data-value="todo">À faire</button><button type="button" data-value="urgent">Urgent</button><button type="button" data-value="desire">Envie</button></div><select id="taskNature" hidden><option value="todo">À faire</option><option value="urgent">Urgent</option><option value="desire">Envie</option></select></section>
       <section class="actions-builder"><div class="section-title"><span>Actions</span><small>Une scène peut en contenir autant que nécessaire.</small></div><div id="actionRows"></div><button type="button" class="add-action" id="addAction">＋ Ajouter une action</button></section>
+      <label class="ios-field task-process-field">Processus de la scène<textarea id="taskProcess" rows="4" placeholder="Ex. Ouvrir le dossier → rassembler les éléments → vérifier → envoyer"></textarea></label>
       <input id="taskPositive" type="hidden"><input id="taskNegative" type="hidden">
       <button class="delete-scene" type="button" id="deleteTask">Supprimer la scène</button>
       <button class="google-calendar-action" type="button" id="googleCalendarAction">Ajouter à Google Agenda</button>
@@ -183,6 +185,7 @@
   <dialog id="consolidationDialog" class="ios-sheet compact-sheet"><div class="duration-panel"><p class="eyebrow">MOTIF CONSOLIDÉ</p><h2>Le motif entre<br>dans le répertoire.</h2><p id="consolidationText"></p><button class="creation-choice" data-consolidation="space"><b>Espacer les rappels</b><span>Choisir moins de jours</span></button><button class="creation-choice" data-consolidation="stop"><b>Arrêter les rappels</b><span>Le motif reste dans l’historique</span></button><button class="creation-choice" data-consolidation="continue"><b>Continuer comme avant</b><span>Vers « Scène culte »</span></button></div></dialog>
 
   <dialog id="weeklyRitualDialog" class="ios-sheet ritual-dialog"><div class="sheet-content ritual-content"><button class="close-button" id="closeWeeklyRitual" aria-label="Fermer">×</button><div id="weeklyRitualContent"></div></div></dialog>
+  <dialog id="weekPrepDialog" class="ios-sheet week-prep-dialog"><div class="sheet-content week-prep-content"><button class="close-button" id="closeWeekPrep" aria-label="Fermer">×</button><p class="eyebrow">PRÉPARATION DE LA SEMAINE · <span id="weekPrepEnvironment"></span></p><h2 id="weekPrepTitle"></h2><p class="week-prep-intro" id="weekPrepIntro"></p><div id="weekPrepContent"></div><div class="week-prep-actions" id="weekPrepActions"></div></div></dialog>
   <dialog id="journalDialog" class="ios-sheet"><div class="sheet-content"><button class="close-button" id="closeJournal" aria-label="Fermer">×</button><p class="eyebrow">JOURNAL DES ÉPISODES</p><h2>Les semaines<br><i>déjà tournées</i></h2><div id="journalList"></div></div></dialog>
   <dialog id="libraryDialog" class="ios-sheet"><div class="sheet-content"><button class="close-button" id="closeLibrary" aria-label="Fermer">×</button><p class="eyebrow" id="libraryEyebrow">BIBLIOTHÈQUE</p><h2 id="libraryTitle"></h2><div id="libraryContent"></div><button class="finish-primary" id="libraryAdd"></button></div></dialog>
 
@@ -299,6 +302,6 @@
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=13-10"></script>
+  <script src="app.js?v=13-12"></script>
 </body>
 </html>
