@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
   <link rel="stylesheet" href="v12.css?v=13-1">
-  <link rel="stylesheet" href="v13.css?v=13-4">
+  <link rel="stylesheet" href="v13.css?v=13-10">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -46,7 +46,6 @@
         <div class="priority-stack" id="priorityStack"></div>
         <details class="priority-queue" id="priorityQueue"><summary><span>Prochainement à l’affiche</span><b id="priorityQueueCount">0</b></summary><div id="priorityQueueList"></div></details>
         <button class="mobile-review" id="mobileReview">Faire le point <b id="mobileReviewCount">0</b></button>
-        <button class="day-close-trigger" id="dayCloseTrigger"><span>✦</span><div><b>Clôturer ma journée</b><small id="dayCloseSubtitle">Disponible à partir de 20 h</small></div><strong>›</strong></button>
       </section>
       <section class="mobile-page" id="weekPage">
         <h1>Le plan<br>de <i>tournage</i></h1>
@@ -57,6 +56,10 @@
       </section>
       <section class="mobile-page" id="observePage">
         <h1>Les<br><i>coulisses</i></h1>
+        <div class="coulisses-rituals">
+          <button class="day-close-trigger day-prep-trigger" id="dayPrepTrigger"><span>☀</span><div><b>Préparer ma journée</b><small id="dayPrepSubtitle">Choisir les scènes du jour</small></div><strong>›</strong></button>
+          <button class="day-close-trigger" id="dayCloseTrigger"><span>✦</span><div><b>Clôturer ma journée</b><small id="dayCloseSubtitle">Faire le point et relire la journée</small></div><strong>›</strong></button>
+        </div>
         <div id="mobileStats"></div>
       </section>
       <section class="mobile-page" id="planningPage">
@@ -261,6 +264,7 @@
       <div class="sheet-content"><h2>À quel rythme<br>l’app t’accompagne</h2>
         <section class="settings-group"><div><span>APPARENCE</span><small>Choisis l’ambiance visuelle de l’app.</small></div><label class="settings-select"><span>Thème</span><select id="appearanceMode"><option value="auto">Automatique</option><option value="light">Clair</option><option value="dark">Sombre</option></select></label></section>
         <section class="settings-group"><div><span>RITUELS DE CLÔTURE</span><small>Chaque univers suit son propre rythme.</small></div><label class="settings-time"><span><b>Journée Pro</b><small>Clôturer le travail</small></span><input id="proDayCloseTime" type="time" value="18:00" required></label><label class="settings-time"><span><b>Journée Perso</b><small>Clôturer la journée personnelle</small></span><input id="personalDayCloseTime" type="time" value="20:00" required></label></section>
+        <section class="settings-group"><div><span>JOURNAL DES ÉPISODES</span><small>Son accès apparaîtra dans Coulisses à partir de ce moment.</small></div><label class="settings-select"><span>Jour</span><select id="journalDay"><option value="1">Lundi</option><option value="2">Mardi</option><option value="3">Mercredi</option><option value="4">Jeudi</option><option value="5">Vendredi</option><option value="6">Samedi</option><option value="0">Dimanche</option></select></label><label class="settings-time"><span><b>Heure d’apparition</b><small>Visible ensuite jusqu’à dimanche soir</small></span><input id="journalTime" type="time" value="18:00" required></label></section>
         <section class="settings-group"><div><span>CONNEXIONS</span><small>Relier Pro Cast à tes autres outils.</small></div><button class="settings-row-button" id="settingsGoogleCalendar" type="button"><span><b>Google Agenda</b><small id="settingsGoogleStatus">Configurer la connexion</small></span><strong>›</strong></button></section>
         <section class="settings-group"><div><span>ARCHIVES</span><small>Les éléments archivés restent conservés.</small></div><div class="settings-archives" id="settingsArchives"></div></section>
         <section class="settings-group"><div><span>MES DONNÉES</span><small>Sauvegarder ou restaurer l’ensemble de Pro Cast.</small></div><div class="settings-data-actions"><button type="button" id="settingsExport">Sauvegarder</button><button type="button" id="settingsImport">Restaurer</button></div></section>
@@ -282,9 +286,19 @@
       <div class="day-close-saved" id="dayCloseSaved" hidden></div>
     </div>
   </dialog>
+  <dialog id="dayPrepDialog" class="ios-sheet day-prep-dialog">
+    <div class="sheet-content day-prep-content">
+      <button class="close-button" id="closeDayPrep" aria-label="Fermer">×</button>
+      <p class="eyebrow">PRÉPARER MA JOURNÉE · <span id="dayPrepEnvironment"></span></p>
+      <h2 id="dayPrepTitle">Aujourd’hui,<br><i>qu’est-ce qui compte ?</i></h2>
+      <p class="day-prep-intro" id="dayPrepIntro"></p>
+      <div id="dayPrepContent"></div>
+      <div class="day-prep-actions" id="dayPrepActions"></div>
+    </div>
+  </dialog>
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=13-4"></script>
+  <script src="app.js?v=13-10"></script>
 </body>
 </html>
