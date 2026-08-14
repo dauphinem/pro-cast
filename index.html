@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="v9-fixes.css?v=11-local">
   <link rel="stylesheet" href="v11.css?v=11-1-local">
   <link rel="stylesheet" href="v12.css?v=13-1">
-  <link rel="stylesheet" href="v13.css?v=13-21">
+  <link rel="stylesheet" href="v13.css?v=13-22">
 </head>
 <body>
   <div class="mobile-app" id="mobileApp">
@@ -138,7 +138,8 @@
       <section class="compact-section"><span>Scénario</span><div class="horizontal-chips" id="scenarioChips"></div><select id="taskScenario" hidden></select></section>
       <section class="compact-section"><span>Rôle</span><div class="horizontal-chips choice-chips" data-choice="taskRole"><button type="button" data-value="supporting">Second rôle</button><button type="button" data-value="headliner">Tête d’affiche</button></div><select id="taskRole" hidden><option value="supporting">Second rôle</option><option value="headliner">Tête d’affiche</option></select></section>
       <section class="compact-section task-nature-step" id="taskNatureSection"><span>Nature</span><p>Comment cette scène doit-elle entrer au programme ?</p><div class="horizontal-chips choice-chips" data-choice="taskNature"><button type="button" data-value="todo">À faire</button><button type="button" data-value="urgent">Urgent</button><button type="button" data-value="desire">Envie</button></div><select id="taskNature" hidden><option value="todo">À faire</option><option value="urgent">Urgent</option><option value="desire">Envie</option></select></section>
-      <section class="actions-builder"><div class="section-title"><span>Actions</span><small>Une scène peut en contenir autant que nécessaire.</small></div><div id="actionRows"></div><button type="button" class="add-action" id="addAction">＋ Ajouter une action</button></section>
+      <section class="scene-itinerary-editor-hint" id="sceneItineraryEditorHint" hidden></section>
+      <section class="actions-builder"><div class="section-title"><span>Sous-tâches</span><small>Préparation, rampe d’accès ou action classique.</small></div><div id="actionRows"></div><button type="button" class="add-action" id="addAction">＋ Ajouter une sous-tâche</button></section>
       <label class="ios-field task-process-field">Processus de la scène<textarea id="taskProcess" rows="4" placeholder="Ex. Ouvrir le dossier → rassembler les éléments → vérifier → envoyer"></textarea></label>
       <input id="taskPositive" type="hidden"><input id="taskNegative" type="hidden">
       <button class="delete-scene" type="button" id="deleteTask">Supprimer la scène</button>
@@ -304,6 +305,6 @@
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=13-21"></script>
+  <script src="app.js?v=13-22"></script>
 </body>
 </html>
